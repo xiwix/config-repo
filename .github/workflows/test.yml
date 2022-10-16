@@ -13,7 +13,10 @@ jobs:
     name: test
     steps:
       - name: test step1
-        run: echo ${{ toJson(github.event) }} 'hi'
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github.event) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
       - name: test step2
         if: github.event.pull_request.merged
         run: echo ${{github.event.pull_request}} 'hello'
