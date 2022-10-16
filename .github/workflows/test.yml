@@ -21,9 +21,6 @@ jobs:
         run: |
           echo "$GITHUB_CONTEXT"
           echo "event_name: ${{ github.event_name }}, action: ${{ github.event.action }}"
-  push:
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged
-    steps: 
       - name: test step2
+        if: github.event.pull_request.merged
         run: echo "${{ toJson(github.event.pull_request) }} hello"
