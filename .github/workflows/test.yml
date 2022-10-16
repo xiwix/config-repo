@@ -6,8 +6,6 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  pull_request_target:
-    branches: [ "master" ]
     types: [ closed ]
     
 jobs:
@@ -16,11 +14,8 @@ jobs:
     name: test
     steps:
       - name: test step1
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github.event.pull_request) }}
         run: |
-          echo "$GITHUB_CONTEXT"
           echo "event_name: ${{ github.event_name }}, action: ${{ github.event.action }}"
       - name: test step2
         if: github.event.pull_request.merged
-        run: echo "${{ toJson(github.event.pull_request) }} hello"
+        run: echo "request merged"
