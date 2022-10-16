@@ -1,6 +1,5 @@
-name: KVS Docker Image CI
+name: blah
 
-#this trigger will initiate the dive action
 on:
   workflow_dispatch: {}
   push:
@@ -13,6 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     name: test
     steps:
-      - name: test step
-        if: github.event.pull_request.merged == true
-        run: echo {{github.event}} 'hello'
+      - name: test step1
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github.event.pull_request) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+      - name: test step2
+        if: github.event.pull_request.merged
+        run: echo ${{github.event.pull_request}} 'hello'
